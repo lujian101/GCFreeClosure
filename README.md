@@ -2,7 +2,7 @@
  A gc-free closure implementation for unity
  
  GC-Alloc has always been a kind of important performance measurement standard, so we should keep gc-alloc as less as possible.
- GCFreeClosure it designed for avoiding gc memory allocation.
+ GCFreeClosure is designed for avoiding gc memory allocation.
  
  example:
  
