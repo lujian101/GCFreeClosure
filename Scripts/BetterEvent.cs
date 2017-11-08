@@ -8,20 +8,18 @@ namespace FGDKit.Base {
     // It could eliminate unnecessary GC-allocation for delegate cloning( add, remove )
     // Usage:
     // class Test {
-    //   BetterEvent<int> callback;
-    //   Test() {
-    //       callback.slot += Func;
-    //       if ( callback ) {
-    //           callback.Invoke( 0 );
-    //       }
-    //       
-    //   }
-    //   void Func( int a ) {
-    //      // no problem at all
-    //      callback.slot -= Func;
-    //   }
-    // }
-
+    //    BetterEvent<int> callback;
+    //    Test() {
+    //        callback += Func;
+    //        if ( callback ) {
+    //            callback.Invoke( 0 );
+    //        }
+    //    }
+    //    void Func( int a ) {
+    //        // no problem at all
+    //        callback -= Func;
+    //    }
+    //}
 
     public struct BetterEvent {
 
@@ -31,6 +29,16 @@ namespace FGDKit.Base {
 
         public static implicit operator bool( BetterEvent exists ) {
             return exists.m_calleeList != null && exists.m_calleeList.Count > 0;
+        }
+
+        public static BetterEvent operator +( BetterEvent lhs, Action rhs ) {
+            lhs.slot += rhs;
+            return lhs;
+        }
+
+        public static BetterEvent operator -( BetterEvent lhs, Action rhs ) {
+            lhs.slot -= rhs;
+            return lhs;
         }
 
         public event Action slot {
@@ -107,6 +115,16 @@ namespace FGDKit.Base {
         List<Action<T>> m_calleeList;
         int m_depth;
         int m_sparseIndex;
+
+        public static BetterEvent<T> operator +( BetterEvent<T> lhs, Action<T> rhs ) {
+            lhs.slot += rhs;
+            return lhs;
+        }
+
+        public static BetterEvent<T> operator -( BetterEvent<T> lhs, Action<T> rhs ) {
+            lhs.slot -= rhs;
+            return lhs;
+        }
 
         public static implicit operator bool( BetterEvent<T> exists ) {
             return exists.m_calleeList != null && exists.m_calleeList.Count > 0;
@@ -187,6 +205,16 @@ namespace FGDKit.Base {
         int m_depth;
         int m_sparseIndex;
 
+        public static BetterEvent<T1, T2> operator +( BetterEvent<T1, T2> lhs, Action<T1, T2> rhs ) {
+            lhs.slot += rhs;
+            return lhs;
+        }
+
+        public static BetterEvent<T1, T2> operator -( BetterEvent<T1, T2> lhs, Action<T1, T2> rhs ) {
+            lhs.slot -= rhs;
+            return lhs;
+        }
+
         public static implicit operator bool( BetterEvent<T1, T2> exists ) {
             return exists.m_calleeList != null && exists.m_calleeList.Count > 0;
         }
@@ -266,6 +294,16 @@ namespace FGDKit.Base {
         int m_depth;
         int m_sparseIndex;
 
+        public static BetterEvent<T1, T2, T3> operator +( BetterEvent<T1, T2, T3> lhs, Action<T1, T2, T3> rhs ) {
+            lhs.slot += rhs;
+            return lhs;
+        }
+
+        public static BetterEvent<T1, T2, T3> operator -( BetterEvent<T1, T2, T3> lhs, Action<T1, T2, T3> rhs ) {
+            lhs.slot -= rhs;
+            return lhs;
+        }
+
         public static implicit operator bool( BetterEvent<T1, T2, T3> exists ) {
             return exists.m_calleeList != null && exists.m_calleeList.Count > 0;
         }
@@ -344,6 +382,16 @@ namespace FGDKit.Base {
         List<Action<T1, T2, T3, T4>> m_calleeList;
         int m_depth;
         int m_sparseIndex;
+
+        public static BetterEvent<T1, T2, T3, T4> operator +( BetterEvent<T1, T2, T3, T4> lhs, Action<T1, T2, T3, T4> rhs ) {
+            lhs.slot += rhs;
+            return lhs;
+        }
+
+        public static BetterEvent<T1, T2, T3, T4> operator -( BetterEvent<T1, T2, T3, T4> lhs, Action<T1, T2, T3, T4> rhs ) {
+            lhs.slot -= rhs;
+            return lhs;
+        }
 
         public static implicit operator bool( BetterEvent<T1, T2, T3, T4> exists ) {
             return exists.m_calleeList != null && exists.m_calleeList.Count > 0;
