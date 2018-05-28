@@ -1,7 +1,10 @@
-﻿using System;
+﻿//#define CHECK_CLOSURE
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Common;
 
 namespace FGDKit.Base {
 
@@ -148,6 +151,11 @@ namespace FGDKit.Base {
                 )
             );
         }
+
+        [Conditional( "CHECK_CLOSURE" )]
+        public static void Check( object d ) {
+            UDebug.Assert( ( ( Delegate )d ).Target == null );
+        }
     }
 
     public struct ActionClosure {
@@ -167,7 +175,7 @@ namespace FGDKit.Base {
         }
 
         public static ActionClosure Create( Action action ) {
-            UDebug.Assert( ( ( Delegate )action ).Target == null );
+            Closure.Check( action );
             return new ActionClosure {
                 _closure = new Closure { _delegate = action },
                 _wrapper = e => e.Invoke()
@@ -175,7 +183,7 @@ namespace FGDKit.Base {
         }
 
         public static ActionClosure Create<T>( Action<T> action, T ctx ) {
-            UDebug.Assert( ( ( Delegate )action ).Target == null );
+            Closure.Check( action );
             return new ActionClosure {
                 _closure = new Closure {
                     _0 = SValue.Writer<T>.invoke( ctx ),
@@ -186,7 +194,7 @@ namespace FGDKit.Base {
         }
 
         public static ActionClosure Create<T0, T1>( Action<T0, T1> action, T0 ctx0, T1 ctx1 ) {
-            UDebug.Assert( ( ( Delegate )action ).Target == null );
+            Closure.Check( action );
             return new ActionClosure {
                 _closure = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
@@ -198,7 +206,7 @@ namespace FGDKit.Base {
         }
 
         public static ActionClosure Create<T0, T1, T2>( Action<T0, T1, T2> action, T0 ctx0, T1 ctx1, T2 ctx2 ) {
-            UDebug.Assert( ( ( Delegate )action ).Target == null );
+            Closure.Check( action );
             return new ActionClosure {
                 _closure = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
@@ -211,7 +219,7 @@ namespace FGDKit.Base {
         }
 
         public static ActionClosure Create<T0, T1, T2, T3>( Action<T0, T1, T2, T3> action, T0 ctx0, T1 ctx1, T2 ctx2, T3 ctx3 ) {
-            UDebug.Assert( ( ( Delegate )action ).Target == null );
+            Closure.Check( action );
             return new ActionClosure {
                 _closure = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
@@ -250,7 +258,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<TResult>( Func<TResult> func ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _delegate = func
@@ -260,7 +268,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<T, TResult>( Func<T, TResult> func, T ctx ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _0 = SValue.Writer<T>.invoke( ctx ),
@@ -271,7 +279,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<T0, T1, TResult>( Func<T0, T1, TResult> func, T0 ctx0, T1 ctx1 ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
@@ -283,7 +291,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<T0, T1, T2, TResult>( Func<T0, T1, T2, TResult> func, T0 ctx0, T1 ctx1, T2 ctx2 ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
@@ -296,7 +304,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<T0, T1, T2, T3, TResult>( Func<T0, T1, T2, T3, TResult> func, T0 ctx0, T1 ctx1, T2 ctx2, T3 ctx3 ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
@@ -310,7 +318,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create( Action func ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _delegate = func
@@ -320,7 +328,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<T>( Action<T> func, T ctx ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _0 = SValue.Writer<T>.invoke( ctx ),
@@ -331,7 +339,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<T0, T1>( Action<T0, T1> func, T0 ctx0, T1 ctx1 ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
@@ -343,7 +351,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<T0, T1, T2>( Action<T0, T1, T2> func, T0 ctx0, T1 ctx1, T2 ctx2 ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
@@ -356,7 +364,7 @@ namespace FGDKit.Base {
         }
 
         public static FuncClosure Create<T0, T1, T2, T3>( Action<T0, T1, T2, T3> func, T0 ctx0, T1 ctx1, T2 ctx2, T3 ctx3 ) {
-            UDebug.Assert( ( ( Delegate )func ).Target == null );
+            Closure.Check( func );
             return new FuncClosure {
                 _context = new Closure {
                     _0 = SValue.Writer<T0>.invoke( ctx0 ),
